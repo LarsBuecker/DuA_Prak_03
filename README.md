@@ -16,18 +16,18 @@ DuA Praktikum - Aufgabe 3
 
 
 ### Eingabeformat
-\<Kommentarzeile>
-...
-\<Kommentarzeile>
-n = \<ganze  Zahl>
-\<nr> : \<Adjazenzliste>
-...
-\<nr> : \<Adjazenzliste>
+\<Kommentarzeile> <br>
+...<br>
+\<Kommentarzeile><br>
+n = \<ganze  Zahl><br>
+\<nr> : \<Adjazenzliste><br>
+...<br>
+\<nr> : \<Adjazenzliste><br>
 
 
-Kommentarzeilen beginnen mit #
-n = ... gibt die Anzahl der Knoten des Graphen an.
-Es folgen die Adjazenzlisten der Startknoten \<nr>, diedurch \<Leerzeichen>:\<Leerzeichen> vom Startknoten getrennt sind. Eine \<Adjazenzliste> ist eine durcheinzelne Leerzeichen getrennte Listevon \<Kanten>, eine \<Kante> bestehtaus \<nr>w\<gewicht>, wobei\<nr>eineKnotennummer ist und \<gewicht> das Kantengewicht als ganze Zahlist. Knotennummer und Kantengewichtwerden durch das Zeichenwgetrennt.Da der Graph ungerichtet ist, erscheintjede Kante zweimal in den Adjazenzlis-ten.
+Kommentarzeilen beginnen mit #<br>
+n = ... gibt die Anzahl der Knoten des Graphen an.<br>
+Es folgen die Adjazenzlisten der Startknoten \<nr>, diedurch \<Leerzeichen>:\<Leerzeichen> vom Startknoten getrennt sind. Eine \<Adjazenzliste> ist eine durcheinzelne Leerzeichen getrennte Listevon \<Kanten>, eine \<Kante> bestehtaus \<nr>w\<gewicht>, wobei\<nr>eineKnotennummer ist und \<gewicht> das Kantengewicht als ganze Zahlist. Knotennummer und Kantengewichtwerden durch das Zeichenwgetrennt. Da der Graph ungerichtet ist, erscheintjede Kante zweimal in den Adjazenzlisten.
 
 ### Ausgabeformat
 Die Ausgabe des Spannbaums als ungerichteter Graph entsprechend zum Eingabeformat (Kommentare sind möglich aber nicht nötig).
