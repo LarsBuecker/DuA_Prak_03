@@ -82,12 +82,22 @@ class Graph:
             #print("%d -- %d == %d" % (u, v, weight))
         print("# Minimum Spanning Tree with weight", minimumCost)
         print("n =", self.vertices)
-        tmp = [[]*self.vertices]
+        tmp = {}
         result_s = sorted(result)
         for data in result_s:
-            if data[1] == None:
-                continue 
-            tmp[data[0]].append([str(data[1]) + "w" + str(data[2])])
+            d = tmp.get(data[0])
+            if d is not None:
+                d.append(str(data[1]) + "w" + str(data[2]))
+                tmp[data[0]] = d
+            else:
+                tmp[data[0]] = [str(data[1]) + "w" + str(data[2])]
+        #print(tmp)
+        for key in tmp.keys():
+            t_str = ""
+            itemlist = tmp.get(key)
+            for item in itemlist:
+                t_str += item + " "
+            print(str(key) + " : " + t_str)
 
 def read_file() -> Graph:
     file = open(sys.argv[1])
