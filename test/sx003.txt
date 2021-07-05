@@ -1,0 +1,10 @@
+# Undirected Shuffle Exchange random graph, dimension 3, seed 22
+n = 8
+0 : 1w189
+1 : 0w189 2w36 4w291
+2 : 1w36 3w92 4w144
+3 : 2w92 5w400 6w102
+4 : 1w291 2w144 5w268
+5 : 3w400 4w268 6w20
+6 : 3w102 5w20 7w693
+7 : 6w693

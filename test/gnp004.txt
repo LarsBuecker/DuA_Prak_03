@@ -1,0 +1,6 @@
+# Undirected GNP random graph, edge prob. 0.500, seed 17
+n = 4
+0 : 1w9585 3w5369
+1 : 0w9585 3w1213
+2 :
+3 : 0w5369 1w1213
