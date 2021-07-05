@@ -15,6 +15,65 @@ class Graph:
     def addEdge(self, u, v, w):
         self.graph.append([u, v, w])
 
+    # Finds a set of an element i
+    def find(self, parent, i):
+        if parent[i] == i:
+            return i
+        return self.find(parent, parent[i])
+
+    # Unites two sets of x and y by rank
+    def union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+
+        # attach smaller rank tree under root of higher rank tree
+        if rank[xroot] < rank(yroot):
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        # if ranks are equal, then make on as root and increment its rank by one
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
+
+    def mst(self):
+        result = [] # resultant MST
+        i, e = 0
+
+        # sort all edges of the graph in non-decreasing order of their weight
+        self.graph = sorted(self.graph, key=lambda item: item[2])
+
+        parent = []
+        rank = []
+
+        # Create vertice subsets with single elements
+        for node in range(self.vertices):
+            parent.append(node)
+            rank.append(0)
+        
+        #Number of edges to be taken is equal to vertices-1
+        while e < self.vertices - 1:
+            # pick the smallest edge and increment the index for next iteration
+            u, v, w = self.graph[i]
+            i = i + 1
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+
+            # if including this edge does´t cause cycle, include it in the result 
+            # and incement the index of result for the next edge
+            if x != y:
+                e = e + 1
+                result.append([u, v, w])
+                self.union(parent, rank, x, y)
+            # else discard the edge
+        
+        minimumCost = 0
+        print("Edges in the constructed MST")
+        for u, v, weight in result:
+            minimumCost += weight
+            print("%d -- %d == %d" % (u, v, weight))
+        print("Minimum Spanning Tree ", minimumCost)
+
 def read_file() -> Graph:
     file = open(sys.argv[1])
 
@@ -33,6 +92,9 @@ def read_file() -> Graph:
         if len(tokens) > 2:
             for i in range(2, len(tokens) - 1):
                 tmp = tokens[i].split("w")
+                # Clamp weight to 10000
+                if tmp[1] > 10000:
+                    tmp[1] = 10000
                 graph.addEdge(tokens[0], tmp[0], tmp[1])
 
     file.close()
@@ -41,3 +103,4 @@ def read_file() -> Graph:
 
 if __name__ == "__main__":
     graph = read_file()
+    graph.mst()
