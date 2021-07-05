@@ -14,6 +14,10 @@ class Graph:
     '''
     def addEdge(self, u, v, w):
         self.graph.append([u, v, w])
+        if v is not None:
+            print("Added edge: %d, %d, %d" % (u, v, w))
+        else:
+            print("Added Vert without edge: ", u)
 
     # Finds a set of an element i
     def find(self, parent, i):
@@ -27,7 +31,7 @@ class Graph:
         yroot = self.find(parent, y)
 
         # attach smaller rank tree under root of higher rank tree
-        if rank[xroot] < rank(yroot):
+        if rank[xroot] < rank[yroot]:
             parent[xroot] = yroot
         elif rank[xroot] > rank[yroot]:
             parent[yroot] = xroot
@@ -38,7 +42,8 @@ class Graph:
 
     def mst(self):
         result = [] # resultant MST
-        i, e = 0
+        i = 0
+        e = 0
 
         # sort all edges of the graph in non-decreasing order of their weight
         self.graph = sorted(self.graph, key=lambda item: item[2])
@@ -76,6 +81,7 @@ class Graph:
 
 def read_file() -> Graph:
     file = open(sys.argv[1])
+    print(sys.argv[0])
 
     graph = None
     for line in file:
@@ -85,17 +91,19 @@ def read_file() -> Graph:
             continue
         # Get the vertice count of the graph and create a new instance of Graph
         if tokens[0] == "n":
-            graph = Graph(tokens[2])
+            graph = Graph(int(tokens[2]))
             continue    
         
         # Add edges to the graph
         if len(tokens) > 2:
-            for i in range(2, len(tokens) - 1):
+            for i in range(2, len(tokens)):
                 tmp = tokens[i].split("w")
                 # Clamp weight to 10000
-                if tmp[1] > 10000:
+                if int(tmp[1]) > 10000:
                     tmp[1] = 10000
-                graph.addEdge(tokens[0], tmp[0], tmp[1])
+                graph.addEdge(int(tokens[0]), int(tmp[0]), int(tmp[1]))
+        else:
+            graph.addEdge(int(tokens[0]), None, None)
 
     file.close()
 
