@@ -14,10 +14,13 @@ class Graph:
     '''
     def addEdge(self, u, v, w):
         self.graph.append([u, v, w])
+        
+        '''
         if v is not None:
             print("Added edge: %d, %d, %d" % (u, v, w))
         else:
             print("Added Vert without edge: ", u)
+        '''
 
     # Finds a set of an element i
     def find(self, parent, i):
@@ -71,17 +74,23 @@ class Graph:
                 result.append([u, v, w])
                 self.union(parent, rank, x, y)
             # else discard the edge
-        
+                
         minimumCost = 0
-        print("Edges in the constructed MST")
+        #print("# Edges in the constructed MST")
         for u, v, weight in result:
             minimumCost += weight
-            print("%d -- %d == %d" % (u, v, weight))
-        print("Minimum Spanning Tree ", minimumCost)
+            #print("%d -- %d == %d" % (u, v, weight))
+        print("# Minimum Spanning Tree with weight", minimumCost)
+        print("n =", self.vertices)
+        tmp = [[]*self.vertices]
+        result_s = sorted(result)
+        for data in result_s:
+            if data[1] == None:
+                continue 
+            tmp[data[0]].append([str(data[1]) + "w" + str(data[2])])
 
 def read_file() -> Graph:
     file = open(sys.argv[1])
-    print(sys.argv[0])
 
     graph = None
     for line in file:
