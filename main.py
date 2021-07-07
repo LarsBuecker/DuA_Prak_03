@@ -88,6 +88,10 @@ class Subset(object):
     def compare(self, edge1: Edge, edge2: Edge) -> bool:
         return edge1.weight > edge2.weight
 
+    ''' Finds the mst of the given graph with the Kruskal algorithm
+    :param graph: The graph to search for the MST
+    :returns:     A list of edges
+    '''
     def kruskal_mst(self, graph: Graph) -> List:
         edges = self.edges
         n = self.vert_count
@@ -110,7 +114,7 @@ class Subset(object):
             x = self.find(subsets, next_edge.start)
             y = self.find(subsets, next_edge.end)
             if x != y:
-                result.append(current_index)
+                result.append(edges[current_index])
                 self.union(subsets, x, y)
         
         return result
@@ -127,7 +131,7 @@ def read_file(self) -> Graph:
         # Add Edges to the graph 
 
         # Add Nodes to the graph
-        
+
     file.close()
 
     return graph
