@@ -1,5 +1,9 @@
 # Representation of a Node in a graph
 # Holds an index and a list of nodes that are connected
+import sys
+from typing import List
+
+
 class Node(object):
 
     '''
@@ -21,6 +25,27 @@ class Edge(object):
         self.start = start
         self.end = end
         self.weight = weight
+
+# Representation of a undirected graph
+class Graph(object):
+
+    '''
+    :param vert_count:  Count of vertices in the graph
+    '''
+    def __init__(self, vert_count) -> None:
+        self.vert_count = vert_count
+        self.edges = []
+
+    ''' Adds a new Edge to the Graph
+    :param u:   Reference of the first node
+    :param v:   Reference of the second node
+    :param w:   Weight of the added edge
+    '''
+    def addEdge(self, u, v, w):
+        self.edges.append([u, v, w])
+
+    def graph_to_string(self):
+        pass
 
 # Representation of a subtree of a graph
 class Subset(object):
@@ -63,26 +88,49 @@ class Subset(object):
     def compare(self, edge1: Edge, edge2: Edge) -> bool:
         return edge1.weight > edge2.weight
 
-# Representation of a undirected graph
-class Graph(object):
+    def kruskal_mst(self, graph: Graph) -> List:
+        edges = self.edges
+        n = self.vert_count
+        edge_count = len(edges)
 
-    '''
-    :param vert_count:  Count of vertices in the graph
-    '''
-    def __init__(self, vert_count) -> None:
-        self.vert_count = vert_count
-        self.edges = []
+        result = []
+        current_index = 0
+        next_index = 0
 
-    ''' Adds a new Edge to the Graph
-    :param u:   Reference of the first node
-    :param v:   Reference of the second node
-    :param w:   Weight of the added edge
-    '''
-    def addEdge(self, u, v, w):
-        self.edges.append([u, v, w])
+        edges = sorted(edges, key=edges.weight)
 
-    def kruskal_mst(self):
-        pass
+        subsets = []
+        for i in range(0, n):
+            subsets[i].parent = i
+            subsets[i].rank = 0
 
-    def graph_to_string(self):
-        pass
+        while current_index < n - 1 and next_index < edge_count:
+            next_edge = edges[next_index]
+            next_index += 1
+            x = self.find(subsets, next_edge.start)
+            y = self.find(subsets, next_edge.end)
+            if x != y:
+                result.append(current_index)
+                self.union(subsets, x, y)
+        
+        return result
+
+# Reads a graph from file and return a new instance of Graph
+def read_file(self) -> Graph:
+    graph = Graph()
+    file = open(sys.argv[1])
+    for line in file:
+        tokens = line.split(" ")
+        if tokens[0] == "#":
+            continue
+
+        # Add Edges to the graph 
+
+        # Add Nodes to the graph
+        
+    file.close()
+
+    return graph
+
+if __name__ == '__main__':
+    read_file()
