@@ -1,4 +1,5 @@
 import sys
+import collections
 
 # Representation of a graph
 class Graph:
@@ -84,6 +85,7 @@ class Graph:
         print("n =", self.vertices)
         tmp = {}
         result_s = sorted(result)
+        #print(result_s)
         for data in result_s:
             d = tmp.get(data[0])
             if d is not None:
@@ -91,7 +93,15 @@ class Graph:
                 tmp[data[0]] = d
             else:
                 tmp[data[0]] = [str(data[1]) + "w" + str(data[2])]
-        #print(tmp)
+
+            # reverse edge
+            d = tmp.get(data[1])
+            if d is not None:
+                d.append(str(data[0]) + "w" +str(data[2]))
+                tmp[data[1]] = d
+            else:
+                tmp[data[1]] = [str(data[0]) + "w" + str(data[2])]
+        tmp = collections.OrderedDict(sorted(tmp.items()))
         for key in tmp.keys():
             t_str = ""
             itemlist = tmp.get(key)
@@ -122,7 +132,11 @@ def read_file() -> Graph:
                     tmp[1] = 10000
                 graph.addEdge(int(tokens[0]), int(tmp[0]), int(tmp[1]))
         else:
-            graph.addEdge(int(tokens[0]), None, None)
+            print("# Graph ist nicht zusammenhängend")
+            print("n = " + str(graph.vertices))
+            for i in range(0, graph.vertices):
+                print(str(i) + " :")
+            return None
 
     file.close()
 
@@ -130,4 +144,5 @@ def read_file() -> Graph:
 
 if __name__ == "__main__":
     graph = read_file()
-    graph.mst()
+    if graph is not None:
+        graph.mst()
