@@ -1,6 +1,12 @@
-# Undirected GNP random graph, edge prob. 0.500, seed 17
-n = 4
-0 : 1w9585 3w5369
-1 : 0w9585 3w1213
-2 :
-3 : 0w5369 1w1213
+# minimaler Spannbaum mit Gewicht 2086
+n = 10
+0 : 1w34 3w283 4w207
+1 : 0w34 8w119
+2 : 4w15 6w386 7w385 9w193
+3 : 0w283
+4 : 0w207 2w15
+5 : 7w464
+6 : 2w386
+7 : 2w385 5w464
+8 : 1w119
+9 : 2w193

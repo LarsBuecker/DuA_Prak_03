@@ -1,133 +1,47 @@
-import sys
+# Representation of a Node in a graph
+# Holds an index and a list of nodes that are connected
+class Node(object):
 
-# Representation of a graph
-class Graph:
+    '''
+    :param index:   Index of the node
+    '''
+    def __init__(self, index) -> None:
+        self.index = index
+        self.next = []
 
-    def __init__(self, vertices) -> None:
-        self.vertices = vertices # Number of vertices
-        self.graph = [] # dict to store the graph
+# Representation of a Edge between two nodes
+class Edge(object):
     
-    ''' Adds a new Edge to the Graph
-    u: source
-    v: destination
-    w: weight
+    ''' 
+    :param start:   Index of the first node
+    :param end:     Index of the second node
+    :param weight:  Weight of the edge
+    '''
+    def __init__(self, start, end, weight) -> None:
+        self.start = start
+        self.end = end
+        self.weight = weight
+
+# Representation of a undirected graph
+class Graph(object):
+
+    '''
+    :param vert_count:  Count of vertices in the graph
+    '''
+    def __init__(self, vert_count) -> None:
+        self.vert_count = vert_count
+        self.edges = []
+
+    '''
+    :param u:   Reference of the first node
+    :param v:   Reference of the second node
+    :param w:   Weight of the added edge
     '''
     def addEdge(self, u, v, w):
-        self.graph.append([u, v, w])
-        
-        '''
-        if v is not None:
-            print("Added edge: %d, %d, %d" % (u, v, w))
-        else:
-            print("Added Vert without edge: ", u)
-        '''
+        pass
 
-    # Finds a set of an element i
-    def find(self, parent, i):
-        if parent[i] == i:
-            return i
-        return self.find(parent, parent[i])
+    def kruskal_mst(self):
+        pass
 
-    # Unites two sets of x and y by rank
-    def union(self, parent, rank, x, y):
-        xroot = self.find(parent, x)
-        yroot = self.find(parent, y)
-
-        # attach smaller rank tree under root of higher rank tree
-        if rank[xroot] < rank[yroot]:
-            parent[xroot] = yroot
-        elif rank[xroot] > rank[yroot]:
-            parent[yroot] = xroot
-        # if ranks are equal, then make on as root and increment its rank by one
-        else:
-            parent[yroot] = xroot
-            rank[xroot] += 1
-
-    def mst(self):
-        result = [] # resultant MST
-        i = 0
-        e = 0
-
-        # sort all edges of the graph in non-decreasing order of their weight
-        self.graph = sorted(self.graph, key=lambda item: item[2])
-
-        parent = []
-        rank = []
-
-        # Create vertice subsets with single elements
-        for node in range(self.vertices):
-            parent.append(node)
-            rank.append(0)
-        
-        #Number of edges to be taken is equal to vertices-1
-        while e < self.vertices - 1:
-            # pick the smallest edge and increment the index for next iteration
-            u, v, w = self.graph[i]
-            i = i + 1
-            x = self.find(parent, u)
-            y = self.find(parent, v)
-
-            # if including this edge does´t cause cycle, include it in the result 
-            # and incement the index of result for the next edge
-            if x != y:
-                e = e + 1
-                result.append([u, v, w])
-                self.union(parent, rank, x, y)
-            # else discard the edge
-                
-        minimumCost = 0
-        #print("# Edges in the constructed MST")
-        for u, v, weight in result:
-            minimumCost += weight
-            #print("%d -- %d == %d" % (u, v, weight))
-        print("# Minimum Spanning Tree with weight", minimumCost)
-        print("n =", self.vertices)
-        tmp = {}
-        result_s = sorted(result)
-        for data in result_s:
-            d = tmp.get(data[0])
-            if d is not None:
-                d.append(str(data[1]) + "w" + str(data[2]))
-                tmp[data[0]] = d
-            else:
-                tmp[data[0]] = [str(data[1]) + "w" + str(data[2])]
-        #print(tmp)
-        for key in tmp.keys():
-            t_str = ""
-            itemlist = tmp.get(key)
-            for item in itemlist:
-                t_str += item + " "
-            print(str(key) + " : " + t_str)
-
-def read_file() -> Graph:
-    file = open(sys.argv[1])
-
-    graph = None
-    for line in file:
-        # Pass the comment lines
-        tokens = line.split(" ")
-        if tokens[0] == "#":
-            continue
-        # Get the vertice count of the graph and create a new instance of Graph
-        if tokens[0] == "n":
-            graph = Graph(int(tokens[2]))
-            continue    
-        
-        # Add edges to the graph
-        if len(tokens) > 2:
-            for i in range(2, len(tokens)):
-                tmp = tokens[i].split("w")
-                # Clamp weight to 10000
-                if int(tmp[1]) > 10000:
-                    tmp[1] = 10000
-                graph.addEdge(int(tokens[0]), int(tmp[0]), int(tmp[1]))
-        else:
-            graph.addEdge(int(tokens[0]), None, None)
-
-    file.close()
-
-    return graph
-
-if __name__ == "__main__":
-    graph = read_file()
-    graph.mst()
+    def graph_to_string(self):
+        pass
