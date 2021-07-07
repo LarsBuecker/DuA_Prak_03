@@ -106,8 +106,8 @@ class Graph:
             t_str = ""
             itemlist = tmp.get(key)
             for item in itemlist:
-                t_str += item + " "
-            print(str(key) + " : " + t_str)
+                t_str += " " + item
+            print(str(key) + " :" + t_str)
 
 def read_file() -> Graph:
     file = open(sys.argv[1])
