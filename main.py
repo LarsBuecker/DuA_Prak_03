@@ -79,7 +79,7 @@ class Graph(object):
     :param w:   Weight of the added edge
     '''
     def addEdge(self, u, v, w):
-        pass
+        self.edges.append([u, v, w])
 
     def kruskal_mst(self):
         pass
